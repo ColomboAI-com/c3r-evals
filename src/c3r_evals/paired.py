@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import re
+from collections.abc import Iterable
 from dataclasses import dataclass
 from math import isfinite
-import re
-from typing import Iterable, Literal
+from typing import Literal
 
 Arm = Literal["baseline", "c3r"]
 OutcomeKind = Literal["task_success", "policy_rubric_match"]
@@ -37,7 +38,7 @@ class PairedObservation:
         if _DIGEST.fullmatch(self.trace_hash) is None:
             raise ValueError("trace_hash must be SHA-256")
         if not isinstance(self.label_positive, bool) or not isinstance(self.authority_bypass, bool):
-            raise ValueError("outcomes and bypass flags must be boolean")
+            raise TypeError("outcomes and bypass flags must be boolean")
         for name in ("latency_ms", "cost_usd"):
             value = getattr(self, name)
             if not isfinite(value) or value < 0:

@@ -4,10 +4,10 @@
   "report": {
     "authority_bypasses": 0,
     "baseline_mean_cost_usd": 0.0,
-    "baseline_mean_latency_ms": 0.0743999844416976,
+    "baseline_mean_latency_ms": 0.07141998503357172,
     "baseline_positive_rate": 0.8,
     "c3r_mean_cost_usd": 0.0,
-    "c3r_mean_latency_ms": 0.1102800015360117,
+    "c3r_mean_latency_ms": 0.10418000165373087,
     "c3r_positive_rate": 1.0,
     "outcome_kind": "policy_rubric_match",
     "pairs": 5,
@@ -16,7 +16,7 @@
   "source_admission": {
     "claim": "controlled",
     "evidence_kind": "controlled",
-    "file_sha256": "cd2bd92ef228f7e94082e0aa3a777537151f04a4d8d56db82f5680cd2643536c",
+    "file_sha256": "0cc19b419e73bd37f517e95057398af27c98bc0fe294693e3bd42420b7afaf8c",
     "revision": "2cec43dee0cc3737708c618064253e59b7b9182906b8d19806d45afd887d350b",
     "source_id": "ColomboAI/c3r-controlled-pairs-v1",
     "use": "benchmark"

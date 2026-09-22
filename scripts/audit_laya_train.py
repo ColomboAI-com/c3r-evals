@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 import argparse
+import json
+import sys
 from collections import Counter
 from hashlib import sha256
-import json
 from pathlib import Path
-import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -42,7 +42,7 @@ def audit(parquet_file: Path, source: SourcePolicy) -> dict[str, object]:
         questions = json.loads(row["questions"])
         gold = json.loads(row["gold"])
         if not isinstance(state, dict) or not isinstance(questions, dict) or not isinstance(gold, dict):
-            raise ValueError("invalid typed-decision JSON object")
+            raise TypeError("invalid typed-decision JSON object")
         if set(questions) != set(gold) or len(questions) != row["n_questions"]:
             raise ValueError("question and teacher-label keys differ")
         normalized = json.dumps(state, sort_keys=True, separators=(",", ":"))

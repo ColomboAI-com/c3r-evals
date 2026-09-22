@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 import argparse
+import json
+import sys
 from dataclasses import asdict
 from hashlib import sha256
-import json
 from pathlib import Path
-import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
