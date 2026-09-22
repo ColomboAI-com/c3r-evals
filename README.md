@@ -24,3 +24,7 @@ python scripts/qualify_openrouter.py --model MODEL_ID --output evidence.json
 
 The provider probe requires `OPENROUTER_API_KEY`. It sends one fixed, non-sensitive
 prompt with a hard cap of 256 generated tokens and never writes response content.
+Reasoning-only output is not counted as a completed response. The redacted evidence
+files cover one DeepSeek, one Qwen, and one frontier-model OpenRouter call, plus a
+private self-hosted DeepSeek serving-budget observation. They are protocol smoke tests,
+not end-to-end C3R qualification or evidence of comparative task success.
