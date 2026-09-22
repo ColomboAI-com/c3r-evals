@@ -1,0 +1,38 @@
+{
+  "collected_at": "2026-09-22T19:21:50.851468+00:00",
+  "completed_response": true,
+  "finish_reason": "stop",
+  "http_status": 200,
+  "latency_ms": 1188.59,
+  "max_tokens": 256,
+  "model_requested": "qwen/qwen3.8-flash",
+  "model_returned": "qwen/qwen3.8-flash",
+  "prompt_policy": "fixed-nonsensitive-v1",
+  "provider": "openrouter",
+  "response_present": true,
+  "response_sha256": "d22309662d766c3937da6ba0a64acc72818139954954558ad7df37e8513227f3",
+  "schema_version": "1.0",
+  "usage": {
+    "completion_tokens": 35,
+    "completion_tokens_details": {
+      "audio_tokens": 0,
+      "image_tokens": 0,
+      "reasoning_tokens": 28
+    },
+    "cost": 2.665e-05,
+    "cost_details": {
+      "upstream_inference_completions_cost": 1.645e-05,
+      "upstream_inference_cost": 2.665e-05,
+      "upstream_inference_prompt_cost": 1.02e-05
+    },
+    "is_byok": false,
+    "prompt_tokens": 68,
+    "prompt_tokens_details": {
+      "audio_tokens": 0,
+      "cache_write_tokens": 0,
+      "cached_tokens": 0,
+      "video_tokens": 0
+    },
+    "total_tokens": 103
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "source_id": "LocalLLaMA/typed-decisions",
+  "revision": "c76749ec58bd8c3d2ea706b31c333a9059c38f90",
+  "file_sha256": "46a58d63edfd86e23229c78afe8b72307bb4ca9fb0e8df180cabb3c67ec9dcd5",
+  "license_id": "Apache-2.0",
+  "evidence_kind": "synthetic",
+  "partition": "train",
+  "rights_basis": "Public dataset card declares Apache-2.0; preserve attribution and upstream notice",
+  "consent_basis": "Publisher describes model-rendered synthetic scenarios, not customer records",
+  "retention_rule": "Pin source revision and hashes in training manifest; retain only approved local working copy",
+  "publication_scope": "attributed-derived"
+}
