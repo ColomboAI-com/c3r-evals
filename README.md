@@ -56,11 +56,19 @@ python scripts/audit_laya_train.py /path/to/all/train-00000-of-00001.parquet \
 `scripts/report_paired.py` consumes redacted JSONL observations with one
 `baseline` and one `c3r` arm per task. Both arms must have the same state hash;
 each must carry a unique trace hash, an independent outcome-label reference,
-measured latency/cost, and an authority-bypass flag. Missing arms, mismatched
+an explicit outcome kind, measured latency/cost, and an authority-bypass flag.
+Missing arms, mismatched
 states, duplicate traces, and invalid measurements fail closed. The report is
 descriptive, not a production qualification or a substitute for inspecting the
 underlying outcome labels. It requires a non-synthetic source policy, so the
 Laya train manifest cannot be used to produce an empirical paired report.
+
+The first [controlled report](sources/c3r-controlled-pairs-v1.report.json) covers
+five C3R-authored local fixtures. Its positive label is **policy-rubric match**,
+not task success; timing is a single-run smoke observation. No trained model,
+provider, customer traffic, or live Colibri route is included. The pinned
+redacted [raw observations](https://github.com/ColomboAI-com/c3r/blob/feat/standalone-runtime/evidence/controlled-pairs-v1/observations.jsonl)
+and rubric generator are in the C3R draft branch.
 
 ## Quick start
 

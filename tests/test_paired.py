@@ -12,7 +12,8 @@ def observation(task: str, arm: str, *, success: bool, state: str = "a" * 64) ->
         task_id=task,
         state_hash=state,
         arm=arm,
-        independent_success=success,
+        label_positive=success,
+        outcome_kind="policy_rubric_match",
         outcome_label_ref=f"verifier:{task}",
         latency_ms=10.0 if arm == "baseline" else 12.0,
         cost_usd=0.0 if arm == "baseline" else 0.01,
@@ -31,7 +32,8 @@ class PairedReportTests(unittest.TestCase):
         ]
         report = paired_report(rows)
         self.assertEqual(report["pairs"], 2)
-        self.assertEqual(report["success_delta"], 0.5)
+        self.assertEqual(report["positive_rate_delta"], 0.5)
+        self.assertEqual(report["outcome_kind"], "policy_rubric_match")
         self.assertEqual(report["authority_bypasses"], 0)
 
     def test_missing_arm_and_mismatched_state_fail(self):
@@ -52,6 +54,14 @@ class PairedReportTests(unittest.TestCase):
             paired_report([first, replace(second, trace_hash=first.trace_hash)])
         with self.assertRaisesRegex(ValueError, "latency_ms"):
             paired_report([first, replace(second, latency_ms=-1)])
+
+    def test_mixed_outcome_kinds_fail(self):
+        from dataclasses import replace
+
+        first = observation("task-1", "baseline", success=False)
+        second = replace(observation("task-1", "c3r", success=True), outcome_kind="task_success")
+        with self.assertRaisesRegex(ValueError, "outcome kinds"):
+            paired_report([first, second])
 
 
 if __name__ == "__main__":

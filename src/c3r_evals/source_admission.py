@@ -46,6 +46,7 @@ class SourcePolicy:
 class AdmissionDecision:
     source_id: str
     revision: str
+    file_sha256: str
     use: Use
     claim: Claim
     evidence_kind: EvidenceKind
@@ -72,4 +73,6 @@ def admit_source(source: SourcePolicy, *, use: Use, claim: Claim) -> AdmissionDe
         raise ValueError("source admission alone cannot establish production qualification")
     if use == "publication" and source.publication_scope == "none":
         raise ValueError("source has no publication scope")
-    return AdmissionDecision(source.source_id, source.revision, use, claim, source.evidence_kind)
+    return AdmissionDecision(
+        source.source_id, source.revision, source.file_sha256, use, claim, source.evidence_kind
+    )

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import asdict
+from hashlib import sha256
 import json
 from pathlib import Path
 import sys
@@ -24,9 +25,12 @@ def main() -> None:
     source = SourcePolicy(**json.loads(args.source.read_text(encoding="utf-8")))
     try:
         admission = admit_source(source, use="benchmark", claim=args.claim)
+        payload = args.observations.read_bytes()
+        if sha256(payload).hexdigest() != source.file_sha256:
+            raise ValueError("observation file SHA-256 does not match source manifest")
         observations = [
             PairedObservation(**json.loads(line))
-            for line in args.observations.read_text(encoding="utf-8").splitlines()
+            for line in payload.decode("utf-8").splitlines()
             if line.strip()
         ]
         report = paired_report(observations)

@@ -1,0 +1,12 @@
+{
+  "source_id": "ColomboAI/c3r-controlled-pairs-v1",
+  "revision": "2cec43dee0cc3737708c618064253e59b7b9182906b8d19806d45afd887d350b",
+  "file_sha256": "cd2bd92ef228f7e94082e0aa3a777537151f04a4d8d56db82f5680cd2643536c",
+  "license_id": "Apache-2.0",
+  "evidence_kind": "controlled",
+  "partition": "test",
+  "rights_basis": "C3R-authored fixture task descriptions and local controller output",
+  "consent_basis": "No customer or personal data; no human participants",
+  "retention_rule": "Retain this redacted public replay pack with its source revision",
+  "publication_scope": "raw"
+}
