@@ -23,5 +23,4 @@ python scripts/qualify_openrouter.py --model MODEL_ID --output evidence.json
 ```
 
 The provider probe requires `OPENROUTER_API_KEY`. It sends one fixed, non-sensitive
-prompt with at most 16 generated tokens and never writes response content.
-
+prompt with a hard cap of 256 generated tokens and never writes response content.
