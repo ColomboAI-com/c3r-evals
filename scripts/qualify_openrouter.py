@@ -17,12 +17,15 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--max-tokens", type=int, default=128)
     args = parser.parse_args()
+    if not 1 <= args.max_tokens <= 256:
+        raise SystemExit("--max-tokens must be between 1 and 256")
     key = os.environ.get("OPENROUTER_API_KEY")
     if not key:
         raise SystemExit("OPENROUTER_API_KEY is required")
     body = json.dumps({"model": args.model, "messages": [{"role": "user", "content": "Reply only: C3R_OK"}],
-                       "max_tokens": 16, "temperature": 0}).encode()
+                       "max_tokens": args.max_tokens, "temperature": 0}).encode()
     request = Request("https://openrouter.ai/api/v1/chat/completions", data=body,
                       headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
                                "X-Title": "C3R Provider Qualification"})
@@ -31,12 +34,16 @@ def main() -> None:
         payload = json.load(response)
         status = response.status
     elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
-    content = payload.get("choices", [{}])[0].get("message", {}).get("content", "")
+    choice = payload.get("choices", [{}])[0]
+    message = choice.get("message", {})
+    content_value = message.get("content") or message.get("reasoning_content") or ""
+    content = content_value if isinstance(content_value, str) else ""
     evidence = {"schema_version": "1.0", "provider": "openrouter", "model_requested": args.model,
                 "model_returned": payload.get("model"), "http_status": status, "latency_ms": elapsed_ms,
                 "response_present": bool(content), "response_sha256": sha256(content.encode()).hexdigest(),
                 "usage": payload.get("usage", {}), "collected_at": datetime.now(timezone.utc).isoformat(),
-                "prompt_policy": "fixed-nonsensitive-v1", "max_tokens": 16}
+                "finish_reason": choice.get("finish_reason"),
+                "prompt_policy": "fixed-nonsensitive-v1", "max_tokens": args.max_tokens}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"qualified {args.model}: status={status}, latency_ms={elapsed_ms}")
@@ -44,4 +51,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
