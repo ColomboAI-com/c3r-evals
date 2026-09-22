@@ -51,6 +51,17 @@ python scripts/audit_laya_train.py /path/to/all/train-00000-of-00001.parquet \
   --output sources/laya-typed-decisions-train.audit.json
 ```
 
+## Paired evaluation contract
+
+`scripts/report_paired.py` consumes redacted JSONL observations with one
+`baseline` and one `c3r` arm per task. Both arms must have the same state hash;
+each must carry a unique trace hash, an independent outcome-label reference,
+measured latency/cost, and an authority-bypass flag. Missing arms, mismatched
+states, duplicate traces, and invalid measurements fail closed. The report is
+descriptive, not a production qualification or a substitute for inspecting the
+underlying outcome labels. It requires a non-synthetic source policy, so the
+Laya train manifest cannot be used to produce an empirical paired report.
+
 ## Quick start
 
 ```bash
