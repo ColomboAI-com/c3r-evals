@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "controlled_internal_serving_budget_probe",
+  "captured_at_utc": "2026-09-22T19:12:58Z",
+  "environment": "private_self_hosted_openai_compatible_runtime",
+  "prompt_policy": "fixed_non_sensitive_internal_v1",
+  "prompt": "Reply with exactly OK.",
+  "generation_settings": {
+    "temperature": 0
+  },
+  "probes": [
+    {
+      "max_tokens": 16,
+      "http_status": 200,
+      "latency_ms_curl_total": 362.262,
+      "finish_reason": "length",
+      "content": null,
+      "prompt_tokens": 35,
+      "completion_tokens": 16,
+      "reasoning_tokens": 16
+    },
+    {
+      "max_tokens": 256,
+      "http_status": 200,
+      "latency_ms_curl_total": 359.794,
+      "finish_reason": "stop",
+      "content": "OK",
+      "prompt_tokens": 35,
+      "completion_tokens": 32,
+      "reasoning_tokens": 29
+    }
+  ],
+  "interpretation": "A successful HTTP status is insufficient: a low output budget can exhaust on reasoning tokens before user-visible content. This single prompt does not qualify task success, safety, calibration, throughput, or the C3R path.",
+  "collection_method": "Controlled internal probe against a private self-hosted runtime; no customer data or external effects."
+}
