@@ -13,6 +13,12 @@ import time
 from urllib.request import Request, urlopen
 
 
+def final_content(message: dict[str, object]) -> str:
+    """Reasoning is not a user-visible completion and never counts as a pass."""
+    value = message.get("content")
+    return value if isinstance(value, str) else ""
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", required=True)
@@ -36,17 +42,20 @@ def main() -> None:
     elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
     choice = payload.get("choices", [{}])[0]
     message = choice.get("message", {})
-    content_value = message.get("content") or message.get("reasoning_content") or ""
-    content = content_value if isinstance(content_value, str) else ""
+    content = final_content(message)
+    completed = bool(content.strip()) and choice.get("finish_reason") == "stop"
     evidence = {"schema_version": "1.0", "provider": "openrouter", "model_requested": args.model,
                 "model_returned": payload.get("model"), "http_status": status, "latency_ms": elapsed_ms,
-                "response_present": bool(content), "response_sha256": sha256(content.encode()).hexdigest(),
+                "response_present": bool(content.strip()), "completed_response": completed,
+                "response_sha256": sha256(content.encode()).hexdigest(),
                 "usage": payload.get("usage", {}), "collected_at": datetime.now(timezone.utc).isoformat(),
                 "finish_reason": choice.get("finish_reason"),
                 "prompt_policy": "fixed-nonsensitive-v1", "max_tokens": args.max_tokens}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    print(f"qualified {args.model}: status={status}, latency_ms={elapsed_ms}")
+    print(f"probed {args.model}: status={status}, completed={completed}, latency_ms={elapsed_ms}")
+    if not completed:
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":

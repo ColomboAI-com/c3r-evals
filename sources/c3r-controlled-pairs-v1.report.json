@@ -1,0 +1,24 @@
+{
+  "observation_count": 10,
+  "qualification": "descriptive paired report only; independent provenance review required",
+  "report": {
+    "authority_bypasses": 0,
+    "baseline_mean_cost_usd": 0.0,
+    "baseline_mean_latency_ms": 0.07141998503357172,
+    "baseline_positive_rate": 0.8,
+    "c3r_mean_cost_usd": 0.0,
+    "c3r_mean_latency_ms": 0.10418000165373087,
+    "c3r_positive_rate": 1.0,
+    "outcome_kind": "policy_rubric_match",
+    "pairs": 5,
+    "positive_rate_delta": 0.19999999999999996
+  },
+  "source_admission": {
+    "claim": "controlled",
+    "evidence_kind": "controlled",
+    "file_sha256": "0cc19b419e73bd37f517e95057398af27c98bc0fe294693e3bd42420b7afaf8c",
+    "revision": "2cec43dee0cc3737708c618064253e59b7b9182906b8d19806d45afd887d350b",
+    "source_id": "ColomboAI/c3r-controlled-pairs-v1",
+    "use": "benchmark"
+  }
+}

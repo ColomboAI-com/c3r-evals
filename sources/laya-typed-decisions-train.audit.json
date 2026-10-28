@@ -1,0 +1,21 @@
+{
+  "distinct_state_count": 1200,
+  "evidence_kind": "synthetic",
+  "file_sha256": "46a58d63edfd86e23229c78afe8b72307bb4ca9fb0e8df180cabb3c67ec9dcd5",
+  "outcome_label_basis": "upstream synthetic teacher labels; not independent C3R outcomes",
+  "partition": "train",
+  "question_type_counts": {
+    "choice": 1800,
+    "noul": 1800,
+    "score": 2400
+  },
+  "revision": "c76749ec58bd8c3d2ea706b31c333a9059c38f90",
+  "row_count": 1200,
+  "source_id": "LocalLLaMA/typed-decisions",
+  "workflow_counts": {
+    "agent_trace_observability": 300,
+    "customer_service": 300,
+    "invoice_processing": 300,
+    "security_incidents": 300
+  }
+}
